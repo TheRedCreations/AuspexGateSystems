@@ -1,6 +1,6 @@
 {
     dialer={
-        ver = "0.8.28",
+        ver = "0.8.29",
         file = "SG_Dialer.lua",
         note = {"0.8.25: IDC get saved again",
                 "0.8.23: 0 can now be first number in IDC",

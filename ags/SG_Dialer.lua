@@ -170,13 +170,31 @@ end
 -- End of Pre-Initialization -------------------------------------------------------
 
 -- Config File IO ------------------------------------------------------------------
-local function readConfig()
+--[[local function readConfig()
   local file = io.open("dialer.cfg", "r")
   if file == nil then return end
   file:close()
   if not pcall(function() dofile("dialer.cfg") end) then
     io.stderr:write("Failed to load config file!\n")
     os.sleep(2)
+  end
+end
+--]]
+local function readConfig()
+  local file = io.open("dialer.cfg", "r")
+
+  if file == nil then
+    io.stderr:write("Config file not found!\n")
+    return
+  end
+
+  local content = file:read("*all")
+  file:close()
+
+  local success, err = pcall(load(content))
+
+  if not success then
+    io.stderr:write("Failed to load config file! Error: " .. err .. "\n")
   end
 end
 
