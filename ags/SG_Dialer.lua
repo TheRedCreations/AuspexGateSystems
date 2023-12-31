@@ -897,8 +897,7 @@ ConfigPage.changeIDCButton = Button.new(65, 46, 0, 0, "         ", function()
       IDC = nil
       writeConfig()
     else
-      newIDC = tonumber(newIDC)
-      if type(newIDC) == "number" and newIDC >= 0 and newIDC < 0e9 then
+      if type(newIDC) == "text" and newIDC >= 0 and newIDC < 0e9 then
         alert("IDC Has Been Changed", 1)
         IDC = tostring(newIDC)
         writeConfig()
@@ -2240,8 +2239,7 @@ local function changeEntryIDC(index)
       gateEntries[index].IDC = nil
       writeToDatabase()
     else
-      newIDC = tonumber(newIDC)
-      if type(newIDC) == "number" and newIDC >= 0 and newIDC < 0e9 then
+      if type(newIDC) == "text" and newIDC >= 0 and newIDC < 0e9 then
         alert("IDC Has Been Changed", 1)
         textIDC = tostring(newIDC)
         gateEntries[index].IDC = textIDC
