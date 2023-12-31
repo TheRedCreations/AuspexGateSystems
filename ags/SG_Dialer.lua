@@ -9,7 +9,7 @@ Tier 3 GPU
 Tier 3 Screen
 ]]--
 
-local Version = "0.8.16"
+local Version = "0.8.23"
 local component = require("component")
 local computer = require("computer")
 local event = require("event")
