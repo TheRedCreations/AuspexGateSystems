@@ -1,7 +1,7 @@
 --[[
 Created By: Augur ShicKla
 Special Thanks To: TRC & matousss
-v0.8.22
+v0.8.23
 
 System Requirements:
 Tier 3.5 Memory
@@ -119,6 +119,7 @@ local AdminDialed = false
 local ForceDialDHD = false
 local DialingPaused = false
 local WormholeConnected = false
+local allowedChars = "0123456789"
 -- End of Declarations -------------------------------------------------------------
 
 -- Pre-Initialization --------------------------------------------------------------
@@ -790,6 +791,17 @@ local function isAuthorized(name, isEnabled)
   if not authorized then alert("ACCESS DENIED", 2) end
   return authorized
 end
+
+local function filterString(inputString, allowedCharacters)
+  local result = ""
+  for i = 1, #inputString do
+    local char = inputString:sub(i, i)
+    if string.find(allowedCharacters, char, 1, true) then
+      result = result .. char
+    end
+  end
+  return result
+end
 -- End of Special Functions --------------------------------------------------------
 
 -- Info Center ---------------------------------------------------------------------
@@ -897,9 +909,9 @@ ConfigPage.changeIDCButton = Button.new(65, 46, 0, 0, "         ", function()
       IDC = nil
       writeConfig()
     else
-      if type(newIDC) == "string" and newIDC >= 0 and newIDC < 0e9 then
+      if type(newIDC) == "string" and newIDC == filterString(newIDC, allowedChars) then
         alert("IDC Has Been Changed", 1)
-        IDC = tostring(newIDC)
+        IDC = newIDC
         writeConfig()
       else
         alert("Invalid IDC", 2)
@@ -2239,10 +2251,9 @@ local function changeEntryIDC(index)
       gateEntries[index].IDC = nil
       writeToDatabase()
     else
-      if type(newIDC) == "string" and newIDC >= 0 and newIDC < 0e9 then
+      if type(newIDC) == "string" and newIDC == filterString(newIDC, allowedChars) then
         alert("IDC Has Been Changed", 1)
-        textIDC = tostring(newIDC)
-        gateEntries[index].IDC = textIDC
+        gateEntries[index].IDC = newIDC
         writeToDatabase()
       else
         alert("Invalid IDC", 2)
