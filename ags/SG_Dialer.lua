@@ -180,7 +180,7 @@ end
 
 function IrisConfig(options)
   if type(options.IDC) == "number" and options.IDC >= 0 and options.IDC < 0e9 and math.floor(options.IDC) == options.IDC then
-    tostring(IDC) = options.IDC --check if it works
+    IDC = tostring(options.IDC) --check if it works
   elseif options.IDC == nil then
     io.stderr:write("No IDC Provided\n")
   else
