@@ -103,7 +103,7 @@ local IrisType = nil
 local IrisMetaType = nil
 local DatabaseWriteTimer = nil
 local IrisSettings = {IDC = nil, AutoCloseIris = true, ModemIDCPort = nil}
-local IDC = nil
+local IDC = ""
 local ModemIDCPort = nil
 local IrisDurability = ""
 local OutgoingIDC = nil
