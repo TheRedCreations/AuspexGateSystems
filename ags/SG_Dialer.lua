@@ -900,7 +900,7 @@ ConfigPage.changeIDCButton = Button.new(65, 46, 0, 0, "         ", function()
       newIDC = tonumber(newIDC)
       if type(newIDC) == "number" and newIDC >= 0 and newIDC < 1e9 and math.floor(newIDC) == newIDC then
         alert("IDC Has Been Changed", 1)
-        tostring(IDC) = newIDC
+        IDC = tostring(newIDC)
         writeConfig()
       else
         alert("Invalid IDC", 2)
