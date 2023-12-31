@@ -1,7 +1,7 @@
 --[[
 Created By: Augur ShicKla
 Special Thanks To: TRC & matousss
-v0.8.19
+v0.8.21
 
 System Requirements:
 Tier 3.5 Memory
