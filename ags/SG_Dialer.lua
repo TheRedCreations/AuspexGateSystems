@@ -1,7 +1,7 @@
 --[[
 Created By: Augur ShicKla
 Special Thanks To: TRC & matousss
-v0.8.18
+v0.8.19
 
 System Requirements:
 Tier 3.5 Memory
@@ -2869,8 +2869,8 @@ local EventListeners = {
   end),
 
   modem_message = event.listen("modem_message", function(_, _, sender, port, _, msg)
-    if port == ModemIDCPort and tonumber(msg) ~= nil then
-      local code = tonumber(msg)
+    if port == ModemIDCPort and msg ~= nil then
+      local code = msg
       if IDC == code then
         if sg.getIrisState() == "CLOSED" then
           sg.toggleIris()
