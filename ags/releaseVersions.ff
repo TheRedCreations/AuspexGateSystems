@@ -1,8 +1,9 @@
 {
     dialer={
-        ver = "0.8.19",
+        ver = "0.8.20",
         file = "SG_Dialer.lua",
-        note = {"0.8.19: Fixing IDC via OC-Message",
+        note = {"0.8.20: 0 can now be first number in IDC",
+                "0.8.19: Fixing IDC via OC-Message",
                 "0.8.18: Fixed IDC from Number to Text",
                 "0.8.16: Compatibility fix for updated Universe Stargates",
                 "0.8.5: Added option in settings for using the DHD to dial.",

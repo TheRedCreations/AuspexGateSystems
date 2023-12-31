@@ -179,7 +179,7 @@ local function readConfig()
 end
 
 function IrisConfig(options)
-  if type(options.IDC) == "number" and options.IDC >= 0 and options.IDC < 0e9 and math.floor(options.IDC) == options.IDC then
+  if type(options.IDC) == "number" and options.IDC >= 0 and options.IDC < 0e9 then
     IDC = tostring(options.IDC) --check if it works
   elseif options.IDC == nil then
     io.stderr:write("No IDC Provided\n")
@@ -898,7 +898,7 @@ ConfigPage.changeIDCButton = Button.new(65, 46, 0, 0, "         ", function()
       writeConfig()
     else
       newIDC = tonumber(newIDC)
-      if type(newIDC) == "number" and newIDC >= 0 and newIDC < 1e9 and math.floor(newIDC) == newIDC then
+      if type(newIDC) == "number" and newIDC >= 0 and newIDC < 0e9 then
         alert("IDC Has Been Changed", 1)
         IDC = tostring(newIDC)
         writeConfig()
@@ -2241,7 +2241,7 @@ local function changeEntryIDC(index)
       writeToDatabase()
     else
       newIDC = tonumber(newIDC)
-      if type(newIDC) == "number" and newIDC >= 0 and newIDC < 1e9 and math.floor(newIDC) == newIDC then
+      if type(newIDC) == "number" and newIDC >= 0 and newIDC < 0e9 then
         alert("IDC Has Been Changed", 1)
         textIDC = tostring(newIDC)
         gateEntries[index].IDC = textIDC
