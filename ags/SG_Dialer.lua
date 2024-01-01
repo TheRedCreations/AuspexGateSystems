@@ -1,7 +1,7 @@
 --[[
 Created By: Augur ShicKla
 Special Thanks To: TRC & matousss
-v0.8.31
+v0.8.32
 
 System Requirements:
 Tier 3.5 Memory
@@ -9,7 +9,7 @@ Tier 3 GPU
 Tier 3 Screen
 ]]--
 
-local Version = "0.8.31"
+local Version = "0.8.32"
 local component = require("component")
 local computer = require("computer")
 local event = require("event")
@@ -167,6 +167,17 @@ if component.isAvailable("redstone") then
     for i=0,5,1 do
         redstone.setOutput(i, 0)
     end
+end
+
+function filterString(inputString, allowedCharacters)
+    local result = ""
+    for i = 1, #inputString do
+        local char = inputString:sub(i, i)
+        if string.find(allowedCharacters, char, 1, true) then
+            result = result .. char
+        end
+    end
+    return result
 end
 -- End of Pre-Initialization -------------------------------------------------------
 
@@ -815,16 +826,7 @@ local function isAuthorized(name, isEnabled)
     return authorized
 end
 
-function filterString(inputString, allowedCharacters)
-    local result = ""
-    for i = 1, #inputString do
-        local char = inputString:sub(i, i)
-        if string.find(allowedCharacters, char, 1, true) then
-            result = result .. char
-        end
-    end
-    return result
-end
+
 -- End of Special Functions --------------------------------------------------------
 
 -- Info Center ---------------------------------------------------------------------
