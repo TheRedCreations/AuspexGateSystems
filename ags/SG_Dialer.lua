@@ -1,7 +1,7 @@
 --[[
 Created By: Augur ShicKla
 Special Thanks To: TRC & matousss
-v0.8.24
+v0.8.31
 
 System Requirements:
 Tier 3.5 Memory
@@ -9,7 +9,7 @@ Tier 3 GPU
 Tier 3 Screen
 ]]--
 
-local Version = "0.8.24"
+local Version = "0.8.31"
 local component = require("component")
 local computer = require("computer")
 local event = require("event")
@@ -67,6 +67,7 @@ ConnectionErrorString = "Communication error with Stargate. Please disconnect an
 local DatabaseFile = "gateEntries.ff"
 local DatabaseFileBackup = "gateEntries.bak"
 local configFile = "dialer.cfg"
+cfgRead=0
 gateEntries = {}
 historyEntries = {}
 AddressBuffer = {}
@@ -170,16 +171,16 @@ end
 -- End of Pre-Initialization -------------------------------------------------------
 
 -- Config File IO ------------------------------------------------------------------
---[[local function readConfig()
-  local file = io.open("dialer.cfg", "r")
-  if file == nil then return end
-  file:close()
-  if not pcall(function() dofile("dialer.cfg") end) then
-    io.stderr:write("Failed to load config file!\n")
-    os.sleep(2)
-  end
-end
---]]
+--local function readConfig()
+--  local file = io.open("dialer.cfg", "r")
+--  if file == nil then return end
+--  file:close()
+--  if not pcall(function() dofile("dialer.cfg") end) then
+--    io.stderr:write("Failed to load config file!\n")
+--    os.sleep(2)
+--  end
+--end
+--
 local function readConfig()
     local file = io.open("dialer.cfg", "r")
 
@@ -202,7 +203,6 @@ function IrisConfig(options)
     io.stderr:write(options.IDC.. "\n")
     if type(options.IDC) == "string" and options.IDC == filterString(options.IDC, allowedChars) then
         IDC = options.IDC --check if it works
-        io.stderr:write(IDC.."\n")
     elseif options.IDC == nil or "" then
         io.stderr:write("No IDC Provided\n")
     else
@@ -270,7 +270,10 @@ local function writeConfig()
     file:close()
 end
 
-readConfig()
+if cfgRead==0 then
+    readConfig()
+    cfgRead=1
+end
 writeConfig()
 -- Config File IO End --------------------------------------------------------------
 
