@@ -1,7 +1,7 @@
 --[[
-Created By: Augur ShicKla
+Created By: Augur ShicKla & TRC
 Installer
-v1.1.1
+v1.1.2
 ]]--
 
 
@@ -29,9 +29,9 @@ if opts.d then
 ┌───────────────────────────┐
 │Installer Set to Dev Branch│
 └───────────────────────────┘]])
-  BranchURL = "https://raw.githubusercontent.com/ShicKla/AuspexGateSystems/dev"
+  BranchURL = "https://raw.githubusercontent.com/TheRedCreations/AuspexGateSystems/dev"
 else
-  BranchURL = "https://raw.githubusercontent.com/ShicKla/AuspexGateSystems/release"
+  BranchURL = "https://raw.githubusercontent.com/TheRedCreations/AuspexGateSystems/release"
 end
 ReleaseVersionsFile = "/ags/releaseVersions.ff"
 ReleaseVersions = nil

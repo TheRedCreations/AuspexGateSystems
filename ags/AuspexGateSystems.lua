@@ -1,6 +1,6 @@
 --[[
-Created By: Augur ShicKla
-v1.1.16
+Created By: Augur ShicKla & TRC
+v1.1.17
 ]]--
 
 local computer = require("computer")
@@ -30,7 +30,7 @@ if opts.k then
 end
 
 local BranchMsg = ""
-local BranchURL = "https://raw.githubusercontent.com/ShicKla/AuspexGateSystems/release"
+local BranchURL = "https://raw.githubusercontent.com/TheRedCreations/AuspexGateSystems/release"
 local ReleaseVersionsFile = "/ags/releaseVersions.ff"
 local ReleaseVersions = nil
 local LocalVersions = nil
@@ -77,7 +77,7 @@ if filesystem.exists("/ags/devmode") then
 ┌──────────────────────────┐
 │Launcher Set to Dev Branch│
 └──────────────────────────┘]]
-  BranchURL = "https://raw.githubusercontent.com/ShicKla/AuspexGateSystems/dev"
+  BranchURL = "https://raw.githubusercontent.com/TheRedCreations/AuspexGateSystems/dev"
 end
 
 
