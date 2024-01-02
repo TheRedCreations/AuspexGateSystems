@@ -1,8 +1,12 @@
 {
     dialer={
-        ver = "0.8.33",
+        ver = "0.8.34",
         file = "SG_Dialer.lua",
-        note = {"0.8.32: IDC get saved again",
+        note = {"0.8.34: Added AGS#33 Iris Warning and",
+                "#66 Incoming Wormhole Redstone Output on south",
+                "Removed ExhaustVent Redstone Output due JSG Universe Vent.",
+                "Added Iris State Redstone Output",
+                "0.8.32: IDC get saved again",
                 "0.8.23: 0 can now be first number in IDC",
                 "0.8.19: Fixing IDC via OC-Message",
                 "0.8.18: Fixed IDC from Number to Text",
