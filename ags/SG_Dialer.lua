@@ -1,7 +1,7 @@
 --[[
 Created By: Augur ShicKla
 Special Thanks To: TRC & matousss
-v0.8.36
+v0.8.37
 
 System Requirements:
 Tier 3.5 Memory
@@ -9,7 +9,7 @@ Tier 3 GPU
 Tier 3 Screen
 ]]--
 
-local Version = "0.8.36"
+local Version = "0.8.37"
 local component = require("component")
 local computer = require("computer")
 local event = require("event")
@@ -2949,24 +2949,30 @@ local EventListeners = {
     end),
 
     received_code = event.listen("received_code", function(_, _, _, code)
-        if IDC == code then
-            if sg.getIrisState() == "CLOSED" then
-                sg.toggleIris()
-                if HasRedstone then
-                    redstone.setOutput(sides[RS_Settings.IrisClosedSide], 0)
-                end
-                sg.sendMessageToIncoming("IDC Accepted!")
-            else
-                if IrisType == "SHIELD" then
-                    sg.sendMessageToIncoming("Shield is Off!")
-                else
-                    sg.sendMessageToIncoming("Iris is Open!")
-                end
+        if OutgoingWormhole then
+            if code == "Iris closed on other side!" or "Shield is up on other side!" then
+                alert(code, 2)
             end
-        elseif code == "Iris closed on other side!" or "Shield is up on other side!" then
-            alert(code, 2)
-        elseif IDC ~= code and sg.getIrisState() == "CLOSED" then
-            sg.sendMessageToIncoming("IDC is Incorrect!")
+        end
+        if IncomingWormholeSendMessageIris then
+            if IDC == code then
+                if sg.getIrisState() == "CLOSED" then
+                    sg.toggleIris()
+                    if HasRedstone then
+                        redstone.setOutput(sides[RS_Settings.IrisClosedSide], 0)
+                    end
+                    sg.sendMessageToIncoming("IDC Accepted!")
+                else
+                    if IrisType == "SHIELD" then
+                        sg.sendMessageToIncoming("Shield is Off!")
+                    else
+                        sg.sendMessageToIncoming("Iris is Open!")
+                    end
+                end
+            else if IDC ~= code and sg.getIrisState() == "CLOSED" then
+                sg.sendMessageToIncoming("IDC is Incorrect!")
+            end
+            end
         end
     end),
 
