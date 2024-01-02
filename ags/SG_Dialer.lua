@@ -1,7 +1,7 @@
 --[[
 Created By: Augur ShicKla
 Special Thanks To: TRC & matousss
-v0.8.32
+v0.8.36
 
 System Requirements:
 Tier 3.5 Memory
@@ -9,7 +9,7 @@ Tier 3 GPU
 Tier 3 Screen
 ]]--
 
-local Version = "0.8.32"
+local Version = "0.8.36"
 local component = require("component")
 local computer = require("computer")
 local event = require("event")
@@ -95,6 +95,7 @@ DebugMode = false
 RootDrive = nil
 DialedAddress = {}
 IncomingWormhole = false
+IncomingWormholeSendMessageIris = false
 GateStatusString, GateStatusBool = nil
 local UNGateResetting = false
 local DHD_AdrEntryMode = false
@@ -2753,6 +2754,7 @@ local EventListeners = {
 
         if IncomingWormhole == false then
             IncomingWormhole = true
+            IncomingWormholeSendMessageIris = true
             if ComputerDialingInterlocked then
                 IncomingWormholeAbortDialing()
             end
@@ -2823,12 +2825,12 @@ local EventListeners = {
                     sg.sendIrisCode(OutgoingIDC)
                 end)
             end
-            if IncomingWormhole then
+            if IncomingWormholeSendMessageIris then
                 if sg.getIrisState() == "CLOSED" then
                     if IrisType == "SHIELD" then
-                        sg.sendIrisCode("Shield is up!")
+                        sg.sendIrisCode("Shield is up on other side!")
                     else
-                        sg.sendIrisCode("Iris closed!")
+                        sg.sendIrisCode("Iris closed on other side!")
                     end
                 end
             end
@@ -2854,6 +2856,7 @@ local EventListeners = {
             gateRingDisplay.reset()
             os.sleep(1.5)
             alert("CONNECTION HAS CLOSED", 1)
+            IncomingWormholeSendMessageIris = false
             gateRingDisplay.eventHorizon(false)
         end, debug.traceback)
         if err ~= nil then ErrorMessage = err end
@@ -2960,7 +2963,7 @@ local EventListeners = {
                     sg.sendMessageToIncoming("Iris is Open!")
                 end
             end
-        elseif code == "Iris closed!" or "Shield is up!" then
+        elseif code == "Iris closed on other side!" or "Shield is up on other side!" then
             alert(code, 2)
         elseif IDC ~= code and sg.getIrisState() == "CLOSED" then
             sg.sendMessageToIncoming("IDC is Incorrect!")
