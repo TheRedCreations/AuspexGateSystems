@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="87565e3d-ba3b-462c-853f-947371ac260b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ags/SG_Dialer.lua" beforeDir="false" afterPath="$PROJECT_DIR$/ags/SG_Dialer.lua" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ags/releaseVersions.ff" beforeDir="false" afterPath="$PROJECT_DIR$/ags/releaseVersions.ff" afterDir="false" />
     </list>

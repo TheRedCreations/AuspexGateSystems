@@ -2581,13 +2581,13 @@ function gateRingDisplay.setChevron(num, isEngaged)
     local stateColor = nil
     self.chevronStates[num] = isEngaged
 
-    if num == 7 and HasRedstone then
+    --[[if num == 7 and HasRedstone then
         if self.chevronStates[7] and not UNGateResetting then
             redstone.setOutput(sides[RS_Settings.WormholeOpenSide], 15)
             -- else
             -- redstone.setOutput(sides[RS_Settings.WormholeOpenSide], 0)
         end
-    end
+    end--]]
 
     if not self.isActive then return end
     if isEngaged then
@@ -2758,10 +2758,11 @@ local EventListeners = {
             end
             if IDC ~= nil and IrisSettings.AutoCloseIris == true and sg.getIrisState() == "OPENED" then
                 sg.toggleIris()
-                redstone.setOutput(sides[RS_Settings.IrisClosedSide], 15)
+                if HasRedstone then
+                    redstone.setOutput(sides[RS_Settings.IrisClosedSide], 15)
+                end
             end
             if HasRedstone then
-                redstone.setOutput(sides[RS_Settings.WormholeOpenSide], 15)
                 redstone.setOutput(sides[RS_Settings.WormholeIncomingSide], 15)
             end
             alert("INCOMING WORMHOLE", 2)
@@ -2794,6 +2795,9 @@ local EventListeners = {
             if isInitiating then
                 finishDialing()
                 updateHistory()
+            end
+            if HasRedstone then
+                redstone.setOutput(sides[RS_Settings.WormholeOpenSide], 15)
             end
             if DialingInterlocked then DialingInterlocked = false end
             glyphListWindow.locked = false
@@ -2859,7 +2863,9 @@ local EventListeners = {
     stargate_wormhole_closed_fully = event.listen("stargate_wormhole_closed_fully", function(_, _, caller, isInitiating)
         if sg.getIrisState() == "CLOSED" then
             sg.toggleIris()
-            redstone.setOutput(sides[RS_Settings.IrisClosedSide], 0)
+            if HasRedstone then
+                redstone.setOutput(sides[RS_Settings.IrisClosedSide], 0)
+            end
         end
         OutgoingWormhole = false
         if GateType == "UN" then
@@ -2922,7 +2928,9 @@ local EventListeners = {
             if IDC == code then
                 if sg.getIrisState() == "CLOSED" then
                     sg.toggleIris()
-                    redstone.setOutput(sides[RS_Settings.IrisClosedSide], 0)
+                    if HasRedstone then
+                        redstone.setOutput(sides[RS_Settings.IrisClosedSide], 0)
+                    end
                     modem.send(sender, ModemIDCPort, "IDC Accepted!")
                 else
                     if IrisType == "SHIELD" then
@@ -2941,7 +2949,9 @@ local EventListeners = {
         if IDC == code then
             if sg.getIrisState() == "CLOSED" then
                 sg.toggleIris()
-                redstone.setOutput(sides[RS_Settings.IrisClosedSide], 0)
+                if HasRedstone then
+                    redstone.setOutput(sides[RS_Settings.IrisClosedSide], 0)
+                end
                 sg.sendMessageToIncoming("IDC Accepted!")
             else
                 if IrisType == "SHIELD" then
@@ -3170,11 +3180,16 @@ CloseGateButton = Button.new(15, 41, 0, 3, "Close Gate", function()
 end)
 IrisToggleButton = Button.new(28, 41, 0, 0, " ", function()
     if isAuthorized(User, AdminOnlySettings.ToggleIris) then
-        sg.toggleIris()
-        if sg.getIrisState() == "CLOSED" or "CLOSING" then
-            redstone.setOutput(sides[RS_Settings.IrisClosedSide], 15)
-        else
-            redstone.setOutput(sides[RS_Settings.IrisClosedSide], 0)
+        if sg.getIrisState() == "CLOSED" then
+            if HasRedstone then
+                redstone.setOutput(sides[RS_Settings.IrisClosedSide], 0)
+            end
+            sg.toggleIris()
+        elseif sg.getIrisState() == "OPENED" then
+            if HasRedstone then
+                redstone.setOutput(sides[RS_Settings.IrisClosedSide], 15)
+            end
+            sg.toggleIris()
         end
     end
 end)
