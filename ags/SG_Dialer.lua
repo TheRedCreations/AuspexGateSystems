@@ -1,7 +1,7 @@
 --[[
 Created By: Augur ShicKla
 Special Thanks To: TRC & matousss
-v0.8.32
+v0.8.37
 
 System Requirements:
 Tier 3.5 Memory
@@ -9,7 +9,7 @@ Tier 3 GPU
 Tier 3 Screen
 ]]--
 
-local Version = "0.8.32"
+local Version = "0.8.37"
 local component = require("component")
 local computer = require("computer")
 local event = require("event")
@@ -95,6 +95,7 @@ DebugMode = false
 RootDrive = nil
 DialedAddress = {}
 IncomingWormhole = false
+IncomingWormholeSendMessageIris = false
 GateStatusString, GateStatusBool = nil
 local UNGateResetting = false
 local DHD_AdrEntryMode = false
@@ -115,7 +116,7 @@ local User = ""
 local AdminOnlySettings = {Quit = true, AddEntry = true, EditEntry = true, History = true, ToggleIris = true, AdminCanForceDialDHD = false}
 local MiscSettings = {HideLocalAddr = false, dialWithDHD = false, LudicrousSpeed = false}
 local HasRedstone = false
-local RS_Settings = {ExhaustVentSide="north", ChevronEngagedSide="top", WormholeOpenSide="bottom", GateIsActiveSide="east"}
+local RS_Settings = {IrisClosedSide="north", ChevronEngagedSide="top", WormholeOpenSide="bottom", GateIsActiveSide="east", WormholeIncomingSide="south"}
 local AdminDialed = false
 local ForceDialDHD = false
 local DialingPaused = false
@@ -255,10 +256,11 @@ function OtherSettings(options)
 end
 
 function RedstoneSettings(options)
-    if type(options.ExhaustVentSide) == "string" then RS_Settings.ExhaustVentSide = options.ExhaustVentSide end
+    if type(options.IrisClosedSide) == "string" then RS_Settings.ExhaustVentSide = options.ExhaustVentSide end
     if type(options.ChevronEngagedSide) == "string" then RS_Settings.ChevronEngagedSide = options.ChevronEngagedSide end
     if type(options.WormholeOpenSide) == "string" then RS_Settings.WormholeOpenSide = options.WormholeOpenSide end
     if type(options.GateIsActiveSide) == "string" then RS_Settings.GateIsActiveSide = options.GateIsActiveSide end
+    if type(options.WormholeIncomingSide) == "string" then RS_Settings.WormholeIncomingSide = options.WormholeIncomingSide end
     RedstoneSettings = nil
 end
 
@@ -935,7 +937,7 @@ ConfigPage.changeIDCButton = Button.new(65, 46, 0, 0, "         ", function()
             writeConfig()
         else
             if type(newIDC) == "string" and newIDC == filterString(newIDC, allowedChars) then
-                alert("IDC Has Been Changed"..newIDC, 1)
+                alert("IDC Has Been Changed "..newIDC, 1)
                 IDC = newIDC
                 writeConfig()
             else
@@ -2580,13 +2582,13 @@ function gateRingDisplay.setChevron(num, isEngaged)
     local stateColor = nil
     self.chevronStates[num] = isEngaged
 
-    if num == 7 and HasRedstone then
+    --[[if num == 7 and HasRedstone then
         if self.chevronStates[7] and not UNGateResetting then
             redstone.setOutput(sides[RS_Settings.WormholeOpenSide], 15)
             -- else
             -- redstone.setOutput(sides[RS_Settings.WormholeOpenSide], 0)
         end
-    end
+    end--]]
 
     if not self.isActive then return end
     if isEngaged then
@@ -2752,14 +2754,18 @@ local EventListeners = {
 
         if IncomingWormhole == false then
             IncomingWormhole = true
+            IncomingWormholeSendMessageIris = true
             if ComputerDialingInterlocked then
                 IncomingWormholeAbortDialing()
             end
             if IDC ~= nil and IrisSettings.AutoCloseIris == true and sg.getIrisState() == "OPENED" then
                 sg.toggleIris()
+                if HasRedstone then
+                    redstone.setOutput(sides[RS_Settings.IrisClosedSide], 15)
+                end
             end
             if HasRedstone then
-                redstone.setOutput(sides[RS_Settings.WormholeOpenSide], 15)
+                redstone.setOutput(sides[RS_Settings.WormholeIncomingSide], 15)
             end
             alert("INCOMING WORMHOLE", 2)
             if gateRingDisplay.isActive then
@@ -2792,6 +2798,9 @@ local EventListeners = {
                 finishDialing()
                 updateHistory()
             end
+            if HasRedstone then
+                redstone.setOutput(sides[RS_Settings.WormholeOpenSide], 15)
+            end
             if DialingInterlocked then DialingInterlocked = false end
             glyphListWindow.locked = false
             glyphListWindow.display()
@@ -2816,6 +2825,15 @@ local EventListeners = {
                     sg.sendIrisCode(OutgoingIDC)
                 end)
             end
+            if IncomingWormholeSendMessageIris then
+                if sg.getIrisState() == "CLOSED" then
+                    if IrisType == "SHIELD" then
+                        sg.sendIrisCode("Shield is up on other side!")
+                    else
+                        sg.sendIrisCode("Iris closed on other side!")
+                    end
+                end
+            end
         end, debug.traceback)
         if err ~= nil then ErrorMessage = err end
         HadNoError = status
@@ -2825,6 +2843,7 @@ local EventListeners = {
         local status, err = xpcall(function()
             if HasRedstone then
                 redstone.setOutput(sides[RS_Settings.WormholeOpenSide], 0)
+                redstone.setOutput(sides[RS_Settings.WormholeIncomingSide], 0)
             end
 
             if not addAddressMode then
@@ -2837,6 +2856,7 @@ local EventListeners = {
             gateRingDisplay.reset()
             os.sleep(1.5)
             alert("CONNECTION HAS CLOSED", 1)
+            IncomingWormholeSendMessageIris = false
             gateRingDisplay.eventHorizon(false)
         end, debug.traceback)
         if err ~= nil then ErrorMessage = err end
@@ -2846,6 +2866,9 @@ local EventListeners = {
     stargate_wormhole_closed_fully = event.listen("stargate_wormhole_closed_fully", function(_, _, caller, isInitiating)
         if sg.getIrisState() == "CLOSED" then
             sg.toggleIris()
+            if HasRedstone then
+                redstone.setOutput(sides[RS_Settings.IrisClosedSide], 0)
+            end
         end
         OutgoingWormhole = false
         if GateType == "UN" then
@@ -2908,6 +2931,9 @@ local EventListeners = {
             if IDC == code then
                 if sg.getIrisState() == "CLOSED" then
                     sg.toggleIris()
+                    if HasRedstone then
+                        redstone.setOutput(sides[RS_Settings.IrisClosedSide], 0)
+                    end
                     modem.send(sender, ModemIDCPort, "IDC Accepted!")
                 else
                     if IrisType == "SHIELD" then
@@ -2923,19 +2949,30 @@ local EventListeners = {
     end),
 
     received_code = event.listen("received_code", function(_, _, _, code)
-        if IDC == code then
-            if sg.getIrisState() == "CLOSED" then
-                sg.toggleIris()
-                sg.sendMessageToIncoming("IDC Accepted!")
-            else
-                if IrisType == "SHIELD" then
-                    sg.sendMessageToIncoming("Shield is Off!")
-                else
-                    sg.sendMessageToIncoming("Iris is Open!")
-                end
+        if OutgoingWormhole then
+            if code == "Iris closed on other side!" or "Shield is up on other side!" then
+                alert(code, 2)
             end
-        elseif IDC ~= code and sg.getIrisState() == "CLOSED" then
-            sg.sendMessageToIncoming("IDC is Incorrect!")
+        end
+        if IncomingWormholeSendMessageIris then
+            if IDC == code then
+                if sg.getIrisState() == "CLOSED" then
+                    sg.toggleIris()
+                    if HasRedstone then
+                        redstone.setOutput(sides[RS_Settings.IrisClosedSide], 0)
+                    end
+                    sg.sendMessageToIncoming("IDC Accepted!")
+                else
+                    if IrisType == "SHIELD" then
+                        sg.sendMessageToIncoming("Shield is Off!")
+                    else
+                        sg.sendMessageToIncoming("Iris is Open!")
+                    end
+                end
+            else if IDC ~= code and sg.getIrisState() == "CLOSED" then
+                sg.sendMessageToIncoming("IDC is Incorrect!")
+            end
+            end
         end
     end),
 
@@ -3152,7 +3189,17 @@ CloseGateButton = Button.new(15, 41, 0, 3, "Close Gate", function()
 end)
 IrisToggleButton = Button.new(28, 41, 0, 0, " ", function()
     if isAuthorized(User, AdminOnlySettings.ToggleIris) then
-        sg.toggleIris()
+        if sg.getIrisState() == "CLOSED" then
+            if HasRedstone then
+                redstone.setOutput(sides[RS_Settings.IrisClosedSide], 0)
+            end
+            sg.toggleIris()
+        elseif sg.getIrisState() == "OPENED" then
+            if HasRedstone then
+                redstone.setOutput(sides[RS_Settings.IrisClosedSide], 15)
+            end
+            sg.toggleIris()
+        end
     end
 end)
 -- IDCButton = Button.new(126, 41, 0, 0, "IDC", function()
@@ -3317,12 +3364,6 @@ local status, err = xpcall(function()
                 if GateStatusString == "idle" and not ComputerDialingInterlocked then
                     if UNGateResetting then
                         UNGateResetting = false
-                        if HasRedstone and WormholeConnected then
-                            redstone.setOutput(sides[RS_Settings.ExhaustVentSide], 15)
-                            event.timer(3.5, function()
-                                redstone.setOutput(sides[RS_Settings.ExhaustVentSide], 0)
-                            end)
-                        end
                     end
                     WormholeConnected = false
                     if DialingInterlocked then
