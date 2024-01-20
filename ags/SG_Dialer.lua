@@ -1894,6 +1894,7 @@ function dialNext(dialed)
             end
             if (dialed + 1) == #AddressBuffer then
                 local _,result,msg = component.dhd.pressBRB()
+                os.sleep(.4)
                 if result == "dhd_engage" then
                     os.sleep(1)
                     gateRingDisplay.eventHorizon(true)
@@ -3471,7 +3472,16 @@ if HasModem and ModemIDCPort ~= nil then modem.close(ModemIDCPort) end
 if ErrorMessage ~= nil then io.stderr:write(tostring(ErrorMessage)) end
 
 -- If touch screen was on, turn it off
-screen.setTouchModeInverted(false)
+--[[if not component.isAvailable("terminalserver") then
+    screen.setTouchModeInverted(false)
+end--]]
+
+devinfo = computer.getDeviceInfo()
+for k, v in pairs(devinfo) do
+    for a, b in pairs(v) do
+        screen.setTouchModeInverted(false)
+    end
+end
 
 -- If cursor blink was off, turn it on
 if not term.getCursorBlink() then term.setCursorBlink(true) end
