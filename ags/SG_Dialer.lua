@@ -1896,7 +1896,6 @@ function dialNext(dialed)
                 local _,result,msg = component.dhd.pressBRB()
                 os.sleep(.4)
                 if result == "dhd_engage" then
-                    os.sleep(1)
                     gateRingDisplay.eventHorizon(true)
                 end
             else
@@ -3479,7 +3478,9 @@ end--]]
 devinfo = computer.getDeviceInfo()
 for k, v in pairs(devinfo) do
     for a, b in pairs(v) do
-        screen.setTouchModeInverted(false)
+        if b == "computer" then
+            screen.setTouchModeInverted(false)
+        end
     end
 end
 

@@ -2,7 +2,7 @@
     dialer={
         ver = "0.8.37",
         file = "SG_Dialer.lua",
-        note = {"0.8.38: Fixed #62 & #63",
+        note = {"0.8.38: Fixed #62 & #63 2",
                 "0.8.37: Added AGS#33 Iris Warning and",
                 "#66 Incoming Wormhole Redstone Output on south",
                 "Removed ExhaustVent Redstone Output due JSG Universe Vent.",
