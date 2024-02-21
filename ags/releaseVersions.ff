@@ -1,8 +1,12 @@
 {
     dialer={
-        ver = "0.8.37",
+        ver = "0.8.38",
         file = "SG_Dialer.lua",
-        note = {"0.8.38: Fixed #62 & #63 2",
+        note = {"0.8.38: Fixed: #62 (Bug on close with Remote Terminal) &",
+                "#63 (Bug with Ludicrous Speed -> Removed Ludicrous Speed)",
+                "#37 (Bug with DHD-Dialing -> Bug has been fixed by JSG)",
+                "Added: #35 (indicate chevron won't lock -> Changed message on dial fail)",
+                "Note: #48 (Bug with Uni-Reset -> Bug not found. Uni-Gate did reset)",
                 "0.8.37: Added AGS#33 Iris Warning and",
                 "#66 Incoming Wormhole Redstone Output on south",
                 "Removed ExhaustVent Redstone Output due JSG Universe Vent.",

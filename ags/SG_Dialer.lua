@@ -1,7 +1,7 @@
 --[[
 Created By: Augur ShicKla
 Special Thanks To: TRC & matousss
-v0.8.37
+v0.8.38
 
 System Requirements:
 Tier 3.5 Memory
@@ -9,7 +9,7 @@ Tier 3 GPU
 Tier 3 Screen
 ]]--
 
-local Version = "0.8.37"
+local Version = "0.8.38"
 local component = require("component")
 local computer = require("computer")
 local event = require("event")
@@ -1888,7 +1888,7 @@ function dialNext(dialed)
                 end
                 os.exit() -- Only the thread exits, AGS continues to run.
             end
-            if GateType == "PG" or not MiscSettings.LudicrousSpeed then
+            if GateType == "PG" --[[or not MiscSettings.LudicrousSpeed--]] then
                 os.sleep(0.05)
                 while sg.getGateStatus() == "dialing" do os.sleep() end
             end
@@ -2844,6 +2844,7 @@ local EventListeners = {
             if HasRedstone then
                 redstone.setOutput(sides[RS_Settings.WormholeOpenSide], 0)
                 redstone.setOutput(sides[RS_Settings.WormholeIncomingSide], 0)
+                redstone.setOutput(sides[RS_Settings.ChevronEngagedSide], 0)
             end
 
             if not addAddressMode then
@@ -2919,7 +2920,7 @@ local EventListeners = {
                 GoodAddress = allGood
             end
             if not GoodAddress then
-                alert("Address is Invalid", 2)
+                alert("Address is Invalid or unreachable", 3)
             end
         end
         if AbortingDialing then AbortingDialing = false end
@@ -3478,7 +3479,7 @@ end--]]
 devinfo = computer.getDeviceInfo()
 for k, v in pairs(devinfo) do
     for a, b in pairs(v) do
-        if b == "computer" then
+        if b == "Computer" then
             screen.setTouchModeInverted(false)
         end
     end
