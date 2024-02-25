@@ -1,8 +1,9 @@
 {
     dialer={
-        ver = "0.8.38",
+        ver = "0.8.39",
         file = "SG_Dialer.lua",
-        note = {"0.8.38: Fixed: #62 (Bug on close with Remote Terminal) &",
+        note = {"0.8.39: Emergency fix: DHD didn't dial correctly",
+                "0.8.38: Fixed: #62 (Bug on close with Remote Terminal) &",
                 "#63 (Bug with Ludicrous Speed -> Removed Ludicrous Speed)",
                 "#37 (Bug with DHD-Dialing -> Bug has been fixed by JSG)",
                 "Added: #35 (indicate chevron won't lock -> Changed message on dial fail)",
