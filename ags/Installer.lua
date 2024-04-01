@@ -29,9 +29,9 @@ if opts.d then
 ┌───────────────────────────┐
 │Installer Set to Dev Branch│
 └───────────────────────────┘]])
-  BranchURL = "https://raw.githubusercontent.com/TheRedCreations/AuspexGateSystems/dev"
+  BranchURL = "https://github.com/TheRedCreations/AuspexGateSystems/raw/dev"
 else
-  BranchURL = "https://raw.githubusercontent.com/TheRedCreations/AuspexGateSystems/release"
+  BranchURL = "https://github.com/TheRedCreations/AuspexGateSystems/raw/release"
 end
 ReleaseVersionsFile = "/ags/releaseVersions.ff"
 ReleaseVersions = nil

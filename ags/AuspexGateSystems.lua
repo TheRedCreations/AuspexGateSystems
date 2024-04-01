@@ -30,7 +30,7 @@ if opts.k then
 end
 
 local BranchMsg = ""
-local BranchURL = "https://raw.githubusercontent.com/TheRedCreations/AuspexGateSystems/release"
+local BranchURL = "https://github.com/TheRedCreations/AuspexGateSystems/raw/release"
 local ReleaseVersionsFile = "/ags/releaseVersions.ff"
 local ReleaseVersions = nil
 local LocalVersions = nil
@@ -77,7 +77,7 @@ if filesystem.exists("/ags/devmode") then
 ┌──────────────────────────┐
 │Launcher Set to Dev Branch│
 └──────────────────────────┘]]
-  BranchURL = "https://raw.githubusercontent.com/TheRedCreations/AuspexGateSystems/dev"
+  BranchURL = "https://github.com/TheRedCreations/AuspexGateSystems/raw/dev"
 end
 
 
