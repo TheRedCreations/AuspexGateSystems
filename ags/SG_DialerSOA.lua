@@ -1801,9 +1801,10 @@ function dialAddress(gateEntry, num)
                 alert("GATE CAN NOT DIAL ITSELF", 2)
             --else
                 --alert("NO GATE FOUND AT PROVIDED ADDRESS", 2)
+                return
             end
         end
-        return
+        
     elseif type(requirement) == "table" then
         if requirement.canOpen == false then
             alert("NOT ENOUGH POWER TO OPEN ... "..tostring(requirement.open).." RF NEEDED", 2)
