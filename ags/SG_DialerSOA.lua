@@ -164,7 +164,7 @@ end
 
 if component.isAvailable("redstone") then
     HasRedstone = true
-    redstone = component.redstone
+    redstone = component.proxy("4a1351e2-e587-4668-8756-ca1d2f7fc13a")
     for i=0,5,1 do
         redstone.setOutput(i, 0)
     end
@@ -1799,8 +1799,8 @@ function dialAddress(gateEntry, num)
         if requirement == "address_malformed" then
             if entriesDuplicateCheck(localAddress, {gateEntry}, GateType, 1) then
                 alert("GATE CAN NOT DIAL ITSELF", 2)
-            else
-                alert("NO GATE FOUND AT PROVIDED ADDRESS", 2)
+            --else
+                --alert("NO GATE FOUND AT PROVIDED ADDRESS", 2)
             end
         end
         return
@@ -1852,13 +1852,20 @@ function dialAddress(gateEntry, num)
     glyphListWindow.locked = true
     DialingPaused = false
     ChildThread.computerDialing = thread.create(dialNext, 0)
+    if component.isAvailable("tunnel") and not ComputerDialingWithDHD then 
+        component.tunnel.send("W@lt€rM@k€ItSp!n")
+    end
     -- dialNext(0)
 end
 
 function dialNext(dialed)
+    if component.isAvailable("tunnel") and dialed and not ComputerDialingWithDHD == 0 then 
+        os.sleep(3)
+    end
     while DialingPaused do os.sleep(0.05) end
     if not AbortingDialing then
         -- dialAddressWindow.display(gateEntry) --Deprecated?!
+        if component.isAvailable("tunnel") then os.sleep(0.5) end
         local glyph = AddressBuffer[dialed + 1]
         -- dialAddressWindow.glyph = glyph --Deprecated?!
         if component.isAvailable("dhd") and GateType ~= "UN" and (MiscSettings.dialWithDHD or ForceDialDHD) then
@@ -3121,6 +3128,7 @@ buttons.addEntryButton = Button.new(52, 2, 0, 3, "Add Entry", function()
 end)
 buttons.abortDialingButton = Button.new(41, 2, 0, 3, "Abort Dialing", function()
     abortDialing()
+    if component.isAvailable("tunnel") then component.tunnel.send("W@lt€r@bortD!@l!ng#") end
 end)
 buttons.glyphResetButton = Button.new(term.window.width-36, 16, 0, 0, "Reset", function()
     if GateStatusBool == nil and sg.dialedAddress ~= nil and sg.dialedAddress ~= "[]" then
