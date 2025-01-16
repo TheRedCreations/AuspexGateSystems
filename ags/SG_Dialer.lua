@@ -45,6 +45,11 @@ if NumberOfGates > 1 then
     io.stderr:write("Too Many Stargates Connected to Computer.")
     os.exit(1)
 end
+
+if _OSVERSION == "OpenOS 1.8.7" then
+    io.stderr:write("OpenOS not compatible with AGS. Please downgrade OpenComputers Mod to 1.8.6 and reinstall OpenOS")
+    os.exit(1)
+end
 -- End of Checking System Requirements ---------------------------------------------
 
 -- Checking to see if AGS properly closed last time --------------------------------
