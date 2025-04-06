@@ -46,7 +46,7 @@ if NumberOfGates > 1 then
     os.exit(1)
 end
 
-if _OSVERSION == "OpenOS 1.8.7" then
+if _OSVERSION == "OpenOS 1.8.7" or "OpenOS 1.8.8" then
     term.clear()
     io.stderr:write("OpenOS not compatible with AGS. Please downgrade OpenComputers Mod to 1.8.6 and reinstall OpenOS")
     os.exit(1)
