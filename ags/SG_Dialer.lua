@@ -1,7 +1,7 @@
 --[[
 Created By: Augur ShicKla
 Special Thanks To: TRC & matousss
-v0.8.39
+v0.8.40
 
 System Requirements:
 Tier 3.5 Memory
@@ -9,7 +9,7 @@ Tier 3 GPU
 Tier 3 Screen
 ]]--
 
-local Version = "0.8.39"
+local Version = "0.8.40"
 local component = require("component")
 local computer = require("computer")
 local event = require("event")
@@ -46,7 +46,7 @@ if NumberOfGates > 1 then
     os.exit(1)
 end
 
-if _OSVERSION == "OpenOS 1.8.7" then
+--[[if _OSVERSION == "OpenOS 1.8.7" then
     term.clear()
     io.stderr:write("OpenOS not compatible with AGS. Please downgrade OpenComputers Mod to 1.8.6 and reinstall OpenOS")
     os.exit(1)
@@ -55,7 +55,7 @@ if _OSVERSION == "OpenOS 1.8.8" then
     term.clear()
     io.stderr:write("OpenOS not compatible with AGS. Please downgrade OpenComputers Mod to 1.8.6 and reinstall OpenOS")
     os.exit(1)
-end
+]]--end
 -- End of Checking System Requirements ---------------------------------------------
 
 -- Checking to see if AGS properly closed last time --------------------------------
@@ -1901,7 +1901,7 @@ function dialNext(dialed)
             end
             if GateType == "PG" or not MiscSettings.LudicrousSpeed then
                 os.sleep(0.05)
-                while sg.getGateStatus() == "dialing" do os.sleep() end
+                while sg.getGateStatus() == "dialing" do os.sleep(0.1) end
             end
             if (dialed + 1) == #AddressBuffer then
                 local _,result,msg = component.dhd.pressBRB()
@@ -1946,7 +1946,7 @@ local function directAbortDialing()
     -- if AbortingDialing then
     -- if GateType == "UN" then
     -- alert("ABORTING DIALING... PLEASE WAIT", 2)
-    -- while sg.getGateStatus() == "dialing_computer" do os.sleep() end
+    -- while sg.getGateStatus() == "dialing_computer" do os.sleep(0.1) end
     -- end
     -- alert("DIALING ABORTED", 2)
     -- end
@@ -1975,10 +1975,10 @@ function abortDialing()
         directAbortDialing()
     else
         alert("ABORTING DIALING... PLEASE WAIT", 2)
-        while sg.getGateStatus() ~= "idle" do os.sleep() end
+        while sg.getGateStatus() ~= "idle" do os.sleep(0.1) end
         alert("DIALING ABORTED", 2)
         sg.engageGate()
-        while sg.getGateStatus() == "failing" do os.sleep() end
+        while sg.getGateStatus() == "failing" do os.sleep(0.1) end
         ComputerDialingInterlocked = false
         AbortingDialing = false
         gpu.fill(41, 2, 38, 5, " ")
@@ -2698,7 +2698,7 @@ function gateRingDisplay.UNreset()
     end
     UNGateResetting = true
     -- while true do
-    -- os.sleep()
+    -- os.sleep(0.1)
     -- local status = sg.getGateStatus()
     -- if status == "dialing" or status == "failing" then break end
     -- end
@@ -2710,7 +2710,7 @@ function gateRingDisplay.UNreset()
         local status,_ = sg.getGateStatus()
         if pos > 9 then pos = 1 end
         self.setChevron(sequence[pos], true)
-        os.sleep()
+        os.sleep(0.1)
         self.setChevron(sequence[pos], false)
         pos = pos + 1
     end
@@ -2732,12 +2732,12 @@ local EventListeners = {
                 if lock then
                     alert("CHEVRON "..math.floor(num).." LOCKED", 1)
                     if not AbortingDialing then sg.engageGate() end
-                    if not caller then os.sleep() end
+                    if not caller then os.sleep(0.1) end
                 else
                     if (num) < 7 then
                     else
                     end
-                    if not caller then os.sleep() end
+                    if not caller then os.sleep(0.1) end
                     if not AbortingDialing then
                         alert("CHEVRON "..math.floor(num).." ENGAGED", 0)
                         dialNext(num)
@@ -3414,7 +3414,7 @@ local status, err = xpcall(function()
                 end
             end
             freeMemoryPercent = tostring(math.floor((computer.freeMemory()/computer.totalMemory())*100)).."%"
-            os.sleep()
+            os.sleep(0.1)
         end
     end)
 

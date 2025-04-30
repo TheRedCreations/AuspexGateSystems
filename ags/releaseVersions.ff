@@ -1,8 +1,9 @@
 {
     dialer={
-        ver = "0.8.39",
+        ver = "0.8.40",
         file = "SG_Dialer.lua",
-        note = {"0.8.39: Emergency fix: DHD didn't dial correctly",
+        note = {"0.8.40: Fix for AGS not starting on OC1.8.7 and 1.8.8",
+                "0.8.39: Emergency fix: DHD didn't dial correctly",
                 "0.8.38: Fixed: #62 (Bug on close with Remote Terminal) &",
                 "#63 (Bug with Ludicrous Speed -> Removed Ludicrous Speed)",
                 "#37 (Bug with DHD-Dialing -> Bug has been fixed by JSG)",
@@ -11,9 +12,7 @@
                 "0.8.37: Added AGS#33 Iris Warning and",
                 "#66 Incoming Wormhole Redstone Output on south",
                 "Removed ExhaustVent Redstone Output due JSG Universe Vent.",
-                "Added Iris State Redstone Output",
-                "0.8.32: IDC get saved again",
-                "0.8.23: 0 can now be first number in IDC",
+                "Added Iris State Redstone Output"
                 },
         manifest = {"/ags/SG_Dialer.lua",
                     "/ags/gateRing.ff",

@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="87565e3d-ba3b-462c-853f-947371ac260b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ags/SG_Dialer.lua" beforeDir="false" afterPath="$PROJECT_DIR$/ags/SG_Dialer.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ags/SG_DialerSOA.lua" beforeDir="false" afterPath="$PROJECT_DIR$/ags/SG_DialerSOA.lua" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ags/releaseVersions.ff" beforeDir="false" afterPath="$PROJECT_DIR$/ags/releaseVersions.ff" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -42,16 +42,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Lua Application.SG_Dialer.lua.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Lua Application.SG_Dialer.lua.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "release",
+    "kotlin-language-version-configured": "true",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="SG_Dialer.lua" type="lua.app" factoryName="Lua Application">
       <option name="program" value="lua.exe" />
@@ -110,7 +110,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="lua-line">
           <url>file://$PROJECT_DIR$/ags/SG_Dialer.lua</url>
-          <line>3205</line>
+          <line>3217</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
