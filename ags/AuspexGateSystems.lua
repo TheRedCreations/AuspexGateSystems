@@ -1,6 +1,6 @@
 --[[
 Created By: Augur ShicKla & TRC
-v1.1.17
+v2.0.0
 ]]--
 
 local computer = require("computer")
