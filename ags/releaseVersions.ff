@@ -1,18 +1,8 @@
 {
     dialer={
-        ver = "0.8.40",
+        ver = "1.0.0",
         file = "SG_Dialer.lua",
-        note = {"0.8.40: Fix for AGS not starting on OC1.8.7 and 1.8.8",
-                "0.8.39: Emergency fix: DHD didn't dial correctly",
-                "0.8.38: Fixed: #62 (Bug on close with Remote Terminal) &",
-                "#63 (Bug with Ludicrous Speed -> Removed Ludicrous Speed)",
-                "#37 (Bug with DHD-Dialing -> Bug has been fixed by JSG)",
-                "Added: #35 (indicate chevron won't lock -> Changed message on dial fail)",
-                "Note: #48 (Bug with Uni-Reset -> Bug not found. Uni-Gate did reset)",
-                "0.8.37: Added AGS#33 Iris Warning and",
-                "#66 Incoming Wormhole Redstone Output on south",
-                "Removed ExhaustVent Redstone Output due JSG Universe Vent.",
-                "Added Iris State Redstone Output"
+        note = {"1.0.0: Release AGS1 for OCCE"
                 },
         manifest = {"/ags/SG_Dialer.lua",
                     "/ags/gateRing.ff",
@@ -21,17 +11,9 @@
                     "/ags/glyphsPG.ff"}
     },
     launcher={
-        ver = "1.1.17",
+        ver = "2.0.0",
         file = "AuspexGateSystems.lua",
-        note = {"1.1.17: Updated to TRC Repo",
-                "1.1.16: Removed access to dev mode, due to abuse",
-                "1.1.13: AGS logo will no longer scroll with text",
-                "1.1.7:",
-                "* Added kiosk mode, and is ran when using the command argument '-k'",
-                "* Kiosk mode will force the dialing program to auto restart if it exits",
-                "  or crashes.",
-                "1.1.4: Fixed Crash from unicode error",
-                "1.1.0: Added a backup to floppy utility which can be found in the '/ags' directory",
+        note = {"2.0.0: Installer Release for OCCE 1.20"
                 },
         manifest = {"/ags/AuspexGateSystems.lua",
                     "/ags/AuspexLogo.ff",
