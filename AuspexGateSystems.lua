@@ -1,6 +1,6 @@
 --[[
 Created By: Augur ShicKla & TRC
-v2.0.0
+v1.1.17
 ]]--
 
 local computer = require("computer")
@@ -30,7 +30,7 @@ if opts.k then
 end
 
 local BranchMsg = ""
-local BranchURL = "https://raw.githubusercontent.com/TheRedCreations/AuspexGateSystems/1.20"
+local BranchURL = "https://raw.githubusercontent.com/TheRedCreations/AuspexGateSystems/release"
 local ReleaseVersionsFile = "/ags/releaseVersions.ff"
 local ReleaseVersions = nil
 local LocalVersions = nil

@@ -1,6 +1,7 @@
 --[[
-Created By: TRC & Augur ShicKla
-v1.0.0
+Created By: Augur ShicKla
+Special Thanks To: TRC & matousss
+v0.8.40
 
 System Requirements:
 Tier 3.5 Memory
@@ -8,7 +9,7 @@ Tier 3 GPU
 Tier 3 Screen
 ]]--
 
-local Version = "1.0.0"
+local Version = "0.8.40"
 local component = require("component")
 local computer = require("computer")
 local event = require("event")
@@ -24,7 +25,7 @@ local gpu = component.gpu
 local modem = {}
 
 -- Checking System Requirements are Met --------------------------------------------
-if gpu.maxResolution() >= 160 then
+if gpu.maxResolution() ~= 160 then
     io.stderr:write("Tier 3 GPU and Screen Required")
     os.exit(1)
 end
